@@ -19,6 +19,11 @@ public class Animal implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
     public String toString() {
         return "name= " + name + "\t";
     }
