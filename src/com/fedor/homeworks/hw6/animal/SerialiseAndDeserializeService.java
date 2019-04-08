@@ -5,24 +5,29 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class SerialiseAndDeserializeService{
-    public static void main(String[] args) throws IOException {
+public class SerialiseAndDeserializeService {
+    public static void main(String[] args) {
 
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("objects.bin"));
-        Animal[] animals = {new Animal("Dog"), new Animal("Cat"),
-                new Animal("Duck"), new Animal("Bear")};
-        int numberOfAnimals = animals.length;
-        System.out.println("Number of Animals are: " + numberOfAnimals);
-        oos.writeInt(numberOfAnimals);
-        for (int i = 0; i < numberOfAnimals; i++) {
-            oos.writeObject(animals[i]);
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("objects.bin"))) {
+            Animal[] animals = {new Animal("Dog"), new Animal("Cat"),
+                    new Animal("Duck"), new Animal("Bear")};
+            int numberOfAnimals = animals.length;
+            System.out.println("Number of Animals are: " + numberOfAnimals);
+            oos.writeInt(numberOfAnimals);
+            for (int i = 0; i < numberOfAnimals; i++) {
+                oos.writeObject(animals[i]);
+            }
+            oos.close();
+
+
+            Path path = Paths.get("objects.bin");
+            byte[] getByteArrayAnimals = Files.readAllBytes(path);
+
+            Animal[] animalFromByteArray = deserializeAnimalArray(getByteArrayAnimals);
         }
-        oos.close();
-
-        Path path = Paths.get("objects.bin");
-        byte[] getByteArrayAnimals = Files.readAllBytes(path);
-
-        Animal[] animalFromByteArray = deserializeAnimalArray(getByteArrayAnimals);
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Animal[] deserializeAnimalArray(byte[] data) {
@@ -36,6 +41,7 @@ public class SerialiseAndDeserializeService{
             }
             return animalsDeserialize;
         } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
             throw new IllegalArgumentException();
         }
     }
