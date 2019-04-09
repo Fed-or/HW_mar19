@@ -21,19 +21,19 @@ public class FileHumanDao implements HumanDao {
         }
     }
 
-    public Human get(String name) {
+    public Human get(String name) throws IOException, ClassNotFoundException {
+        Human human = null;
         try (ObjectInputStream inputObjectStream =
                      new ObjectInputStream(new FileInputStream("storageTwo.dat"))) {
             Human[] humans = (Human[]) inputObjectStream.readObject();
-            for (Human human : humans) {
-                if (human.getName().equals(name)) {
-                    return human;
+            for (Human hmn : humans) {
+                if (!hmn.getName().equals(name)) {
+                    throw new IllegalArgumentException("Human did not find in base");
+                } else {
+                    human = hmn;
                 }
             }
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Human did not find");
-
         }
-        return null;
+        return human;
     }
 }
