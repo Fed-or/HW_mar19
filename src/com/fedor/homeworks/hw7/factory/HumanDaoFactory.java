@@ -15,7 +15,7 @@ public class HumanDaoFactory {
 
     public static HumanDao getHumanDao(boolean isFileDao, boolean isInMemory) {
         try {
-            String dbName = PropertyLoader.getProperty("db.name");
+            String dbName = PropertyLoader.getProperty("db.nameHuman");
             if (dbName.equals("memory") && isInMemory) {
                 return inMemoryDao;
             }

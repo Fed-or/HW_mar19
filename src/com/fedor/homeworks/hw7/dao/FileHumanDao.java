@@ -9,30 +9,30 @@ import java.util.List;
 
 @Component
 public class FileHumanDao implements HumanDao {
+    private Human human = null;
 
     public void save(Human human) {
         try (ObjectOutputStream outputStream =
                      new ObjectOutputStream(new FileOutputStream("storageTwo.dat"))) {
-            List<Human> humans = new ArrayList<>();
-            humans.add(human);
-            outputStream.writeObject(humans);
+            outputStream.writeObject(human);
         } catch (IOException e) {
-            System.out.println("Human was not save to base");
+            System.out.println("Saving Human in base was not successful");
         }
     }
 
     public Human get(String name) throws IOException, ClassNotFoundException {
-        Human human = null;
+        List<Human> humans = new ArrayList<>();
         try (ObjectInputStream inputObjectStream =
                      new ObjectInputStream(new FileInputStream("storageTwo.dat"))) {
-            Human[] humans = (Human[]) inputObjectStream.readObject();
+            humans.add((Human) inputObjectStream.readObject());
             for (Human hmn : humans) {
-                if (!hmn.getName().equals(name)) {
-                    throw new IllegalArgumentException("Human did not find in base");
-                } else {
+                if (hmn.getName().equals(name)) {
                     human = hmn;
+                    return human;
                 }
             }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Human did not find in base");
         }
         return human;
     }

@@ -4,9 +4,12 @@ import com.fedor.homeworks.hw7.di.Component;
 import com.fedor.homeworks.hw7.model.Client;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class FileClientDao implements ClientDao {
+    private Client client = null;
 
     public void save(Client client) {
         try (ObjectOutputStream outputStream =
@@ -18,20 +21,21 @@ public class FileClientDao implements ClientDao {
         }
     }
 
-    public Client get(String name) throws IOException, ClassNotFoundException {
-        Client client = null;
-
+    public Client get(String name) {
+        List<Client> clients = new ArrayList<>();
         try (ObjectInputStream inputObjectStream =
                      new ObjectInputStream(new FileInputStream("storage.dat"))) {
-
-            Client[] clients = (Client[]) inputObjectStream.readObject();
+            clients.add((Client) inputObjectStream.readObject());
             for (Client clnt : clients) {
-                if (!clnt.getName().equals(name)) {
-                    throw new IllegalArgumentException("Client did not find in base");
-                } else {client = clnt; }
+                if (clnt.getName().equals(name)) {
+                    client = clnt;
+
+                    return client;
+                }
             }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Client did not find in base");
         }
         return client;
     }
 }
-

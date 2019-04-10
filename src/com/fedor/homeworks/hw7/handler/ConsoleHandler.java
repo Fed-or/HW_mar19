@@ -8,6 +8,7 @@ import com.fedor.homeworks.hw7.model.Client;
 import com.fedor.homeworks.hw7.model.Human;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ConsoleHandler {
@@ -18,12 +19,12 @@ public class ConsoleHandler {
     @InjectHuman
     private static HumanDao humanDao;
 
-    public void handle() throws FileNotFoundException {
+    public void handle() throws IOException, ClassNotFoundException {
         while (true) {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("If saving client - enter \"1\"; " +
-                    "if getting client - enter \"2\", if you saving human - enter \"3\", " +
-                    "if you getting human - enter \"4\", if you want to exit - enter \"5\".");
+            System.out.println("If saving client - enter \"1\"; \n" +
+                    "if getting client - enter \"2\"; \n if you saving human - enter \"3\"; \n" +
+                    "if you getting human - enter \"4\"; \n if you want to exit - enter \"5\".\n");
             int consoleChoise = scanner.nextInt();
             switch (consoleChoise) {
                 case 1:
@@ -38,7 +39,7 @@ public class ConsoleHandler {
                     addHumanInfo(scanner);
                     break;
                 case 4:
-                    System.out.println("Enter name of client");
+                    System.out.println("Enter name of human");
                     String nameHuman = scanner.next();
                     System.out.println(humanDao.get(nameHuman));
                     break;
@@ -49,7 +50,7 @@ public class ConsoleHandler {
     }
 
     private void addClientInfo(Scanner scanner) {
-        System.out.printf("Enter info about client");
+        System.out.printf("Info about client: \n");
         System.out.println("Enter clients name");
         String name = scanner.next();
         System.out.println("Enter clients phone number");
@@ -59,7 +60,7 @@ public class ConsoleHandler {
     }
 
     private void addHumanInfo(Scanner scanner) {
-        System.out.printf("Enter info about human");
+        System.out.printf("Info about human: \n");
         System.out.println("Enter humans name");
         String name = scanner.next();
         System.out.println("Enter humans address");
