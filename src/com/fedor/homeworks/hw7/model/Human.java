@@ -1,6 +1,8 @@
 package com.fedor.homeworks.hw7.model;
 
-public class Human {
+import java.io.Serializable;
+
+public class Human implements Serializable {
     private String name;
     private String address;
 
