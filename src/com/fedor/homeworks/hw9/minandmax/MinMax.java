@@ -13,12 +13,10 @@ public class MinMax {
             Stream<? extends T> stream,
             Comparator<? super T> order,
             BiConsumer<? super T, ? super T> minMaxConsumer) {
-        List<? extends T> listOfNumbers = stream.sorted(order).collect(Collectors.toList());
+        List<T> listOfNumbers = new ArrayList<>();
+                stream.sorted(order).forEach(listOfNumbers :: add);
         if(listOfNumbers.size() > 1){
             minMaxConsumer.accept(listOfNumbers.get(0), listOfNumbers.get(listOfNumbers.size() - 1));
-        }
-        else if(listOfNumbers.size() == 1){
-            minMaxConsumer.accept(listOfNumbers.get(0), listOfNumbers.get(0));
         }
         else
             minMaxConsumer.accept(null, null);
