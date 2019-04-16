@@ -1,6 +1,6 @@
 package com.fedor.homeworks.hw9.mailservice;
 
-public class AbstractDespatch<T> implements Despatchable<T> {
+public abstract class AbstractDespatch<T> implements Despatchable<T> {
 
     private String from;
     private String to;

@@ -26,7 +26,7 @@ public class MinMax {
 
     public static void main(String[] args) {
         List<Integer> num = Arrays.asList(3,5,7,9,12,2);
-        findMinMax(num.stream(), Integer::compareTo,
+        findMinMax(num.stream(), Comparator.naturalOrder(),
                 (integer, integer2) -> System.out.println("Minimum: " + integer +
                         ", " + "Maximum: " + integer2));
     }
