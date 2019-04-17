@@ -20,23 +20,26 @@ public class AsciiCharSequence implements CharSequence {
 
     @Override
     public CharSequence subSequence(int start, int end) {
-        int size = end - start;
-        int ind = 0;
-        byte[] b = new byte[size];
-        for (int i = start; i < end; i++) {
-            b[ind] = ascii[i];
-            ind++;
+        if (end >= start) {
+            int size = end - start;
+            int ind = 0;
+            byte[] arrayAsciiSymbols = new byte[size];
+            for (int i = start; i < end; i++) {
+                arrayAsciiSymbols[ind] = ascii[i];
+                ind++;
+            }
+            AsciiCharSequence acs = new AsciiCharSequence(arrayAsciiSymbols);
+            return acs;
         }
-        AsciiCharSequence acs = new AsciiCharSequence(b);
-        return acs;
+        return null;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder str = new StringBuilder();
-        for (int i = 0; i < ascii.length; i++) {
-            str.append((char) ascii[i]);
+        @Override
+        public String toString () {
+            StringBuilder str = new StringBuilder();
+            for (int i = 0; i < ascii.length; i++) {
+                str.append((char) ascii[i]);
+            }
+            return str.toString();
         }
-        return str.toString();
     }
-}
