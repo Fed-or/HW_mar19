@@ -11,7 +11,7 @@ public class RobotConnectManager implements RobotConnectionManager {
         RobotConnection rc = null;
         boolean isConect = random.nextBoolean();
         if (!isConect) {
-            System.out.println("No connection!");
+           throw new RobotConnectionException("Not Connect");
         } else{
             System.out.println("There is connection");
         rc = new RobotConnect();
