@@ -13,7 +13,7 @@ public class RobotConnectManager implements RobotConnectionManager {
         if (!isConect) {
             System.out.println("No connection!");
         } else{
-            System.out.println("There is conection");
+            System.out.println("There is connection");
         rc = new RobotConnect();
     }
         return rc;

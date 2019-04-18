@@ -77,7 +77,7 @@ public class Robot {
                 break;
         }
     }
-    public void moveRobot(RobotConnectionManager robotConnectionManager, int toX, int toY) {
+    public static void moveRobotTo(RobotConnectionManager robotConnectionManager, int toX, int toY) {
 
         int count = 1;
         boolean connect = false;
