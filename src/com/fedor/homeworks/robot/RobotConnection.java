@@ -1,4 +1,4 @@
-package com.fedor.homeworks.hw10.robot;
+package com.fedor.homeworks.robot;
 
 public interface RobotConnection extends AutoCloseable {
     void moveRobotTo(int x, int y);
